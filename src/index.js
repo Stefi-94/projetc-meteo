@@ -12,8 +12,8 @@ function currentTime() {
   let day = days[currentDate.getDay()];
   let hour = currentDate.getHours();
   let minute = currentDate.getMinutes();
-  if (minutes < 10) {
-    minutes = `0${minutes}`;
+  if (minute < 10) {
+    minute = `0${minutes}`;
   }
   let dayForm = document.querySelector("#date-content");
   dayForm.innerHTML = `${day} ${hour}:${minute}`;
