@@ -1,0 +1,81 @@
+.main {
+  font-family: "Londrina Solid", cursive;
+  background-image: url("../img/sole.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 0;
+  color: white;
+}
+
+h1,
+h2,
+h3 {
+  display: inline;
+  color: white;
+  padding: 20px;
+}
+.current-img {
+  top: 0;
+  right: 0px;
+  position: relative;
+  width: 50%;
+}
+.centro h2,
+h1 {
+  font-size: 80px;
+}
+
+.main a {
+  color: #d5d5d5;
+  transition: all 200ms ease-in-out;
+  text-decoration: none;
+  padding: 20px;
+  font-size: 40px;
+  font-style: italic;
+  border-radius: 40px;
+}
+.main a:hover {
+  color: rgb(0, 0, 34);
+  background: #91bccf;
+  opacity: 0.33;
+  border-radius: 40px;
+}
+
+form {
+  margin: 50px;
+  float: right;
+}
+.next-days-img {
+  display: block;
+  width: 60%;
+  margin: 0px auto;
+}
+.next-days {
+  text-align: center;
+  font-size: 25px;
+}
+.centro {
+  padding-top: 10%;
+  text-align: center;
+}
+#h1-city {
+  text-transform: capitalize;
+}
+#current-type {
+  text-decoration: none;
+  font-size: 40px;
+  color: rgb(142, 190, 194);
+}
+.change-btn {
+  background: #70a5eb;
+  color: white;
+  border-radius: 30px;
+  padding: 15px;
+  border: none;
+  box-shadow: 5px 5px 10px #0f2644;
+}
+.change-btn:hover {
+  background: #fff;
+  color: #70a5eb;
+  border-radius: 30px;
+}
