@@ -13,7 +13,7 @@ function currentTime() {
   let hour = currentDate.getHours();
   let minute = currentDate.getMinutes();
   if (minute < 10) {
-    minute = `0${minutes}`;
+    minute = `0${minute}`;
   }
   let dayForm = document.querySelector("#date-content");
   dayForm.innerHTML = `${day} ${hour}:${minute}`;
@@ -39,6 +39,8 @@ function searchTemp(responsive) {
   let searchTemp = Math.round(responsive.data.main.temp);
   let h1Temp = document.querySelector(".current-temperature");
   h1Temp.innerHTML = `${searchTemp} C°`;
+  infoState(responsive);
+  changeBK(searchTemp);
 }
 
 //funzione per cambiare da F a C e viceversa
@@ -50,6 +52,8 @@ function changeTempType(event) {
   let changeType = document.querySelector(".current-temperature"); //per cambiare l'h1
 
   let temp = changeType.textContent.substring(0, 2); //leggo i gradi
+  let change = Math.round(((temp - 32) * 5) / 9);
+  changeBK(change);
 
   //se il tipo è c allora converto tutto
   if (typeTemp.textContent === "°C") {
@@ -70,7 +74,7 @@ function changeTempType(event) {
 function getCurrentTemperature() {
   navigator.geolocation.getCurrentPosition(positionNow);
 }
-
+//posizione attuale
 function positionNow(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
@@ -80,7 +84,7 @@ function positionNow(position) {
 
   axios.get(urlApi).then(currentTemp);
 }
-
+//temperatura del posto in cui si trova - corrente/attuale
 function currentTemp(responsive) {
   let temp = Math.round(responsive.data.main.temp - 273.15); //ha i kelvin in temperatura ecosi si converte in celsius
   let city = responsive.data.name;
@@ -90,13 +94,44 @@ function currentTemp(responsive) {
 
   h1City.innerHTML = city;
   h1Temp.innerHTML = temp + "°C";
+  changeBK(temp);
+  infoState(responsive);
 }
+//altre info -wind-stat-prec
+function infoState(responsive) {
+  let stateInfo = document.querySelector("#state-info");
+  let windInfo = document.querySelector("#wind-info");
+  let humidityInfo = document.querySelector("#humidity-info");
+  //let nuvoleInfo = document.querySelector(".state-info");
+  let getDescription = responsive.data.weather[0].description;
 
+  stateInfo.innerHTML = getDescription;
+
+  let getWind = Math.round(responsive.data.wind.speed);
+  windInfo.innerHTML = getWind;
+  let getHumidity = Math.round(responsive.data.main.humidity);
+  humidityInfo.innerHTML = getHumidity;
+  //let getnuvole = responsive.data.clouds;
+}
+//cambio background
+function changeBK(info) {
+  let backgroundChange = document.querySelector(".main");
+  let backgroundHTML = document.querySelector("html");
+  let backgroundBody = document.querySelector("body");
+  if (info >= 20) {
+    backgroundChange.style.backgroundImage = "url(img/bk-hot.png)";
+    backgroundHTML.style.backgroundColor = "rgb(230, 204, 174)";
+    backgroundBody.style.background = "rgb(230, 204, 174)";
+  } else {
+    backgroundChange.style.backgroundImage = `url(img/bk-cold.png)`;
+    backgroundHTML.style.backgroundColor = "#97ddd8";
+    backgroundBody.style.background = "#97ddd8";
+  }
+}
+currentTime();
 //searchbutton
 let cityForm = document.querySelector("#city-form");
 cityForm.addEventListener("submit", searchCity);
-
-currentTime();
 
 //change temp type f c
 let typeTemp = document.querySelector("#current-type");

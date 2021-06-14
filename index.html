@@ -3,7 +3,7 @@
   <head>
     <title>Meteo</title>
     <meta charset="UTF-8" />
-     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
@@ -31,16 +31,21 @@
       </form>
 
       <div class="row today">
-        <div class="col centro">
-        <h2>Sun</h2>
-        <h1 class="current-temperature">27° C       </h1>  <a href="#" id="current-type">°F</a>  <p class>
-          wind: 14km/h <br />
-         <span id="date-content">current time: 15:00</span> 
-         </p>
-</div>
-<div class="col">
-        <img src="img/sun.png" class="current-img" /><br /></div>
-       
+        <div class="col-7 centro">
+          <h2>Sun</h2>
+          <h1 class="current-temperature">27° C</h1>
+          <a href="#" id="current-type">°F</a>
+
+          <h4 id="date-content">current time: 15:00</h4>
+
+          Wind: <span id="wind-info">14</span> km/h <br />
+          Humidity: <span id="humidity-info">10</span>%<br />
+          State: <span id="state-info">Sun</span>
+        </div>
+
+        <div class="col-3">
+          <img src="img/sun.png" class="current-img" /><br />
+        </div>
       </div>
 
       <div class="row next-days">
@@ -54,20 +59,26 @@
           />26°/9°<br />Wed
         </div>
         <div class="col">
-          <img src="img/sun.png" class="next-days-img" /><p>22°/10°<br />Thu</7p>
+          <img src="img/sun.png" class="next-days-img" />
+          <p>22°/10°<br />Thu</p>
         </div>
         <div class="col">
-          <img src="img/nuvoloso.png" class="next-days-img" /><p>28°/11°<br />Fri</p>
+          <img src="img/nuvoloso.png" class="next-days-img" />
+          <p>28°/11°<br />Fri</p>
         </div>
         <div class="col">
-          <img
-            src="img/sole-nuvoloso.png"
-            class="next-days-img"
-          /><p>24+/12°<br />Sat</p>
+          <img src="img/sole-nuvoloso.png" class="next-days-img" />
+          <p>24°/12°<br />Sat</p>
         </div>
       </div>
     </div>
-    <footer>This code was coded by Stefanie Anselmi. <a href="https://github.com/Stefi-94/projetc-meteo" target="_blank">open-sourced on GitHub </a>- hosted by <a target="_blank" href="https://www.netlify.com/">netifly</a></footer>
+    <footer>
+      This code was coded by Stefanie Anselmi.
+      <a href="https://github.com/Stefi-94/projetc-meteo" target="_blank"
+        >open-sourced on GitHub </a
+      >- hosted by
+      <a target="_blank" href="https://www.netlify.com/">netifly</a>
+    </footer>
 
     <script src="src/index.js"></script>
   </body>

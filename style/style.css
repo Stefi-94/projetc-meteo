@@ -1,10 +1,15 @@
-.main {
+html,
+body {
   font-family: "Londrina Solid", cursive;
-  background-image: url("../img/sole.jpg");
+  background-color: rgb(230, 204, 174);
+}
+.main {
+  background-image: url("../img/bk-hot.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 50% 0;
-  color: white;
+  color: rgb(255, 255, 255);
+  border-radius: 40px;
 }
 
 h1,
@@ -18,7 +23,7 @@ h3 {
   top: 0;
   right: 0px;
   position: relative;
-  width: 50%;
+  width: 100%;
 }
 .centro h2,
 h1 {
@@ -26,6 +31,7 @@ h1 {
 }
 footer {
   text-align: center;
+  font-size: small;
 }
 .main a {
   color: #d5d5d5;
@@ -42,7 +48,11 @@ footer {
   opacity: 0.33;
   border-radius: 40px;
 }
-
+.today {
+  padding: 5%;
+  margin: 0px auto;
+  width: 100%;
+}
 form {
   margin: 50px;
   float: right;
@@ -57,7 +67,6 @@ form {
   font-size: 25px;
 }
 .centro {
-  padding-top: 10%;
   text-align: center;
 }
 #h1-city {
@@ -80,4 +89,7 @@ form {
   background: #fff;
   color: #70a5eb;
   border-radius: 30px;
+}
+#state-info {
+  text-transform: capitalize;
 }
