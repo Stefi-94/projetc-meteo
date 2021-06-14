@@ -24,7 +24,9 @@ h3 {
 h1 {
   font-size: 80px;
 }
-
+footer {
+  text-align: center;
+}
 .main a {
   color: #d5d5d5;
   transition: all 200ms ease-in-out;
