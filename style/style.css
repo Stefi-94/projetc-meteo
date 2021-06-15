@@ -40,8 +40,24 @@ footer {
   padding: 20px;
   font-size: 40px;
   font-style: italic;
-  border-radius: 40px;
+  border-radius: 70px;
 }
+#current-type-c {
+  text-decoration: none;
+}
+#unit .active {
+  color: white;
+  font-size: 80px;
+  text-decoration: none;
+  cursor: default;
+}
+#unit .active:hover {
+  text-decoration: none;
+  color: white;
+  background: none;
+  opacity: 1;
+}
+
 .main a:hover {
   color: rgb(0, 0, 34);
   background: #91bccf;

@@ -37,37 +37,13 @@ function searchCity(event) {
 //add change wind too
 function searchTemp(responsive) {
   let searchTemp = Math.round(responsive.data.main.temp);
+  celsius = searchTemp;
   let h1Temp = document.querySelector(".current-temperature");
-  h1Temp.innerHTML = `${searchTemp} C°`;
+  h1Temp.innerHTML = `${searchTemp}°`;
   infoState(responsive);
   changeBK(searchTemp);
 }
 
-//funzione per cambiare da F a C e viceversa
-function changeTempType(event) {
-  //no default
-  event.preventDefault();
-  //finta temperatura
-  let typeTemp = document.querySelector("#current-type"); //leggo a per capire se c'è f o no
-  let changeType = document.querySelector(".current-temperature"); //per cambiare l'h1
-
-  let temp = changeType.textContent.substring(0, 2); //leggo i gradi
-
-  //se il tipo è c allora converto tutto
-  if (typeTemp.textContent === "°C") {
-    let celsius = Math.round(((temp - 32) * 5) / 9);
-
-    changeType.innerHTML = celsius + "°C ";
-
-    typeTemp.innerHTML = "°F";
-  } else {
-    //se il valore premuto è f allora converto in f
-    let fahrenheit = Math.round((temp * 9) / 5 + 32);
-    typeTemp.innerHTML = "°C";
-
-    changeType.innerHTML = fahrenheit + "°F";
-  }
-}
 //temperatura attuale
 function getCurrentTemperature() {
   navigator.geolocation.getCurrentPosition(positionNow);
@@ -86,12 +62,12 @@ function positionNow(position) {
 function currentTemp(responsive) {
   let temp = Math.round(responsive.data.main.temp - 273.15); //ha i kelvin in temperatura ecosi si converte in celsius
   let city = responsive.data.name;
-
+  celsius = temp;
   let h1Temp = document.querySelector(".current-temperature");
   let h1City = document.querySelector("#h1-city");
 
   h1City.innerHTML = city;
-  h1Temp.innerHTML = temp + "°C";
+  h1Temp.innerHTML = temp + "°";
   changeBK(temp);
   infoState(responsive);
 }
@@ -132,14 +108,44 @@ function changeBK(info) {
     backgroundBody.style.background = "#97ddd8";
   }
 }
+//funzione per cambiare da F a C e viceversa
+function changeTempTypeF(event) {
+  //no default
+  event.preventDefault();
+  //finta temperatura
+  let changeTemp = document.querySelector(".current-temperature"); //per cambiare l'h1
+
+  let fahrenheit = Math.round((celsius * 9) / 5 + 32);
+  changeTemp.innerHTML = fahrenheit + "°";
+  //remove the active class from c
+  celciusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+}
+function changeTempTypeC(event) {
+  //no default
+  event.preventDefault();
+  //finta temperatura
+  let changeTemp = document.querySelector(".current-temperature"); //per cambiare l'h1
+
+  changeTemp.innerHTML = celsius + "°";
+  //add and remove la classe
+  fahrenheitLink.classList.remove("active");
+  celciusLink.classList.add("active");
+}
+
+let celsius = null;
 currentTime();
 //searchbutton
 let cityForm = document.querySelector("#city-form");
 cityForm.addEventListener("submit", searchCity);
 
 //change temp type f c
-let typeTemp = document.querySelector("#current-type");
-typeTemp.addEventListener("click", changeTempType);
+let fahrenheitLink = document.querySelector("#current-type");
+fahrenheitLink.addEventListener("click", changeTempTypeF);
+
+//f to c
+let celciusLink = document.querySelector("#current-type-c");
+celciusLink.addEventListener("click", changeTempTypeC);
 
 //funzione per avere la temperatura attuale
 let currentCity = document.querySelector("#current-city");
