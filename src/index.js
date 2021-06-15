@@ -18,7 +18,13 @@ function currentTime() {
   let dayForm = document.querySelector("#date-content");
   dayForm.innerHTML = `${day} ${hour}:${minute}`;
 }
-
+function start(city) {
+  let apiKey = "c6c5df81762dca8f7c5fc66d49902bfd";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  let cityH1 = document.querySelector("#h1-city");
+  cityH1.innerHTML = city;
+  axios.get(apiUrl).then(searchTemp);
+}
 //cerca la citta dentro l'api dato
 function searchCity(event) {
   event.preventDefault();
@@ -150,3 +156,4 @@ celciusLink.addEventListener("click", changeTempTypeC);
 //funzione per avere la temperatura attuale
 let currentCity = document.querySelector("#current-city");
 currentCity.addEventListener("click", getCurrentTemperature);
+start("Zurich");
