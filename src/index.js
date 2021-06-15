@@ -52,8 +52,6 @@ function changeTempType(event) {
   let changeType = document.querySelector(".current-temperature"); //per cambiare l'h1
 
   let temp = changeType.textContent.substring(0, 2); //leggo i gradi
-  let change = Math.round(((temp - 32) * 5) / 9);
-  changeBK(change);
 
   //se il tipo è c allora converto tutto
   if (typeTemp.textContent === "°C") {
@@ -97,20 +95,26 @@ function currentTemp(responsive) {
   changeBK(temp);
   infoState(responsive);
 }
-//altre info -wind-stat-prec
+//altre info -wind-stat-prec-img
 function infoState(responsive) {
   let stateInfo = document.querySelector("#state-info");
   let windInfo = document.querySelector("#wind-info");
   let humidityInfo = document.querySelector("#humidity-info");
+  let icon = document.querySelector("#icon");
+
   //let nuvoleInfo = document.querySelector(".state-info");
-  let getDescription = responsive.data.weather[0].description;
-
-  stateInfo.innerHTML = getDescription;
-
   let getWind = Math.round(responsive.data.wind.speed);
-  windInfo.innerHTML = getWind;
+  let getDescription = responsive.data.weather[0].description;
   let getHumidity = Math.round(responsive.data.main.humidity);
+  let getIcon = responsive.data.weather[0].icon;
+  stateInfo.innerHTML = getDescription;
+  windInfo.innerHTML = getWind;
   humidityInfo.innerHTML = getHumidity;
+  icon.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${getIcon}@2x.png`
+  );
+  icon.setAttribute("alt", getDescription);
   //let getnuvole = responsive.data.clouds;
 }
 //cambio background
