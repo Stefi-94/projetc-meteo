@@ -8,7 +8,7 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 50% 0;
-  color: rgb(255, 255, 255);
+  color: rgba(255, 255, 255, 0);
   border-radius: 40px;
 }
 
@@ -73,15 +73,7 @@ form {
   margin: 50px;
   float: right;
 }
-.next-days-img {
-  display: block;
-  width: 60%;
-  margin: 0px auto;
-}
-.next-days {
-  text-align: center;
-  font-size: 25px;
-}
+
 .centro {
   text-align: center;
 }
@@ -108,4 +100,23 @@ form {
 }
 #state-info {
   text-transform: capitalize;
+}
+.next-days-img {
+  display: block;
+  width: 60%;
+  margin: 0px auto;
+}
+.next-days {
+  text-align: center;
+  font-size: 24px;
+}
+.forecast-days {
+  color: rgb(59, 59, 59);
+}
+.forecast-max-temperature {
+  font-weight: bold;
+}
+.forecast-min-temperature {
+  font-weight: 100;
+  opacity: 0.8;
 }

@@ -60,7 +60,7 @@ function positionNow(position) {
   let longitude = position.coords.longitude;
   let appId = "c6c5df81762dca8f7c5fc66d49902bfd";
 
-  let urlApi = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${appId}`;
+  let urlApi = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${appId}&units=metric`;
 
   axios.get(urlApi).then(currentTemp);
 }
@@ -97,8 +97,45 @@ function infoState(responsive) {
     `http://openweathermap.org/img/wn/${getIcon}@2x.png`
   );
   icon.setAttribute("alt", getDescription);
+  getForecast(responsive.data.coord);
   //let getnuvole = responsive.data.clouds;
 }
+
+//forecast
+
+function getForecast(coordinates) {
+  let appId = "c6c5df81762dca8f7c5fc66d49902bfd";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${appId}&units=metric`;
+
+  axios.get(apiUrl).then(displayForecast);
+}
+
+//previsioni future
+function displayForecast(response) {
+  console.log(response);
+  console.log(response.data);
+
+  debugger;
+  let forecastElement = document.querySelector("#div-forecast");
+  let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+  let forecastHTML = `<div class="row next-days">`;
+
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `<div class="col">
+            <div class="forecast-days">
+              <img src="img/sole-nuvoloso.png" class="next-days-img" />
+              <span class="forecast-max-temperature">26°</span>
+              <span class="forecast-min-temperature">12°</span><br /><span
+                class="forecast-date">${day}</span></div></div>`;
+  });
+
+  forecastHTML = forecastHTML + "</div>";
+  forecastElement.innerHTML = forecastHTML;
+}
+
 //cambio background
 function changeBK(info) {
   let backgroundChange = document.querySelector(".main");
@@ -156,4 +193,5 @@ celciusLink.addEventListener("click", changeTempTypeC);
 //funzione per avere la temperatura attuale
 let currentCity = document.querySelector("#current-city");
 currentCity.addEventListener("click", getCurrentTemperature);
+
 start("Zurich");
