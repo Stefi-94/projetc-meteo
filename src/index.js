@@ -66,14 +66,14 @@ function positionNow(position) {
 }
 //temperatura del posto in cui si trova - corrente/attuale
 function currentTemp(responsive) {
-  let temp = Math.round(responsive.data.main.temp - 273.15); //ha i kelvin in temperatura ecosi si converte in celsius
+  let temp = Math.round(responsive.data.main.temp);
   let city = responsive.data.name;
   celsius = temp;
   let h1Temp = document.querySelector(".current-temperature");
   let h1City = document.querySelector("#h1-city");
 
   h1City.innerHTML = city;
-  h1Temp.innerHTML = temp + "°";
+  h1Temp.innerHTML = celsius + "°";
   changeBK(temp);
   infoState(responsive);
 }
@@ -112,28 +112,39 @@ function getForecast(coordinates) {
 
 //previsioni future
 function displayForecast(response) {
-  console.log(response);
-  console.log(response.data);
-
-  debugger;
+  // console.log(response.data.daily);
+  let forecast = response.data.daily;
   let forecastElement = document.querySelector("#div-forecast");
-  let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
   let forecastHTML = `<div class="row next-days">`;
-
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `<div class="col">
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      forecastHTML += `<div class="col">
             <div class="forecast-days">
-              <img src="img/sole-nuvoloso.png" class="next-days-img" />
-              <span class="forecast-max-temperature">26°</span>
-              <span class="forecast-min-temperature">12°</span><br /><span
-                class="forecast-date">${day}</span></div></div>`;
+              <img src="http://openweathermap.org/img/wn/${
+                forecastDay.weather[0].icon
+              }@2x.png" class="next-days-img" />
+              <span class="forecast-max-temperature">${Math.round(
+                forecastDay.temp.max
+              )}°</span>
+              <span class="forecast-min-temperature">${Math.round(
+                forecastDay.temp.min
+              )}°</span><br /><span
+                class="forecast-date">${formatForcastDay(
+                  forecastDay.dt
+                )}</span></div></div>`;
+    }
   });
 
-  forecastHTML = forecastHTML + "</div>";
+  forecastHTML += "</div>";
   forecastElement.innerHTML = forecastHTML;
+}
+function formatForcastDay(data) {
+  let date = new Date(data * 1000);
+  let day = date.getDay();
+  console.log(day);
+  let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  return days[day];
 }
 
 //cambio background
