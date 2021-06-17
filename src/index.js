@@ -4,7 +4,7 @@ function currentTime() {
     "Monday",
     "Tuesday",
     "Wednesday",
-    "Thrsday",
+    "Thursday",
     "Friday",
     "Saturday",
   ];
@@ -16,7 +16,7 @@ function currentTime() {
     minute = `0${minute}`;
   }
   let dayForm = document.querySelector("#date-content");
-  dayForm.innerHTML = `${day} ${hour}:${minute}`;
+  dayForm.innerHTML = `Last update: ${day} ${hour}:${minute}`;
 }
 function start(city) {
   let apiKey = "c6c5df81762dca8f7c5fc66d49902bfd";
@@ -142,7 +142,7 @@ function displayForecast(response) {
 function formatForcastDay(data) {
   let date = new Date(data * 1000);
   let day = date.getDay();
-  console.log(day);
+
   let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   return days[day];
 }
@@ -163,43 +163,12 @@ function changeBK(info) {
   }
 }
 //funzione per cambiare da F a C e viceversa
-function changeTempTypeF(event) {
-  //no default
-  event.preventDefault();
-  //finta temperatura
-  let changeTemp = document.querySelector(".current-temperature"); //per cambiare l'h1
-
-  let fahrenheit = Math.round((celsius * 9) / 5 + 32);
-  changeTemp.innerHTML = fahrenheit + "°";
-  //remove the active class from c
-  celciusLink.classList.remove("active");
-  fahrenheitLink.classList.add("active");
-}
-function changeTempTypeC(event) {
-  //no default
-  event.preventDefault();
-  //finta temperatura
-  let changeTemp = document.querySelector(".current-temperature"); //per cambiare l'h1
-
-  changeTemp.innerHTML = celsius + "°";
-  //add and remove la classe
-  fahrenheitLink.classList.remove("active");
-  celciusLink.classList.add("active");
-}
 
 let celsius = null;
 currentTime();
 //searchbutton
 let cityForm = document.querySelector("#city-form");
 cityForm.addEventListener("submit", searchCity);
-
-//change temp type f c
-let fahrenheitLink = document.querySelector("#current-type");
-fahrenheitLink.addEventListener("click", changeTempTypeF);
-
-//f to c
-let celciusLink = document.querySelector("#current-type-c");
-celciusLink.addEventListener("click", changeTempTypeC);
 
 //funzione per avere la temperatura attuale
 let currentCity = document.querySelector("#current-city");

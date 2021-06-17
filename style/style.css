@@ -25,13 +25,14 @@ h3 {
   position: relative;
   width: 100%;
 }
-
-.info-content p {
+span {
+  color: white;
+}
+.date-content {
   color: white;
 }
 .centro h2,
-h1,
-p {
+h1 {
   font-size: 80px;
   color: white;
 }
@@ -125,4 +126,7 @@ form {
 .forecast-min-temperature {
   font-weight: 100;
   opacity: 0.8;
+}
+.info-content p {
+  color: white;
 }
