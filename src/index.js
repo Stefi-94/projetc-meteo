@@ -46,6 +46,8 @@ function searchTemp(responsive) {
   celsius = searchTemp;
   let h1Temp = document.querySelector(".current-temperature");
   h1Temp.innerHTML = `${searchTemp}°`;
+  fahrenheitLink.classList.remove("active");
+  celciusLink.classList.add("active");
   infoState(responsive);
   changeBK(searchTemp);
 }
@@ -71,7 +73,8 @@ function currentTemp(responsive) {
   celsius = temp;
   let h1Temp = document.querySelector(".current-temperature");
   let h1City = document.querySelector("#h1-city");
-
+  fahrenheitLink.classList.remove("active");
+  celciusLink.classList.add("active");
   h1City.innerHTML = city;
   h1Temp.innerHTML = celsius + "°";
   changeBK(temp);
@@ -89,13 +92,11 @@ function infoState(responsive) {
   let getDescription = responsive.data.weather[0].description;
   let getHumidity = Math.round(responsive.data.main.humidity);
   let getIcon = responsive.data.weather[0].icon;
+
   stateInfo.innerHTML = getDescription;
   windInfo.innerHTML = getWind;
   humidityInfo.innerHTML = getHumidity;
-  icon.setAttribute(
-    "src",
-    `http://openweathermap.org/img/wn/${getIcon}@2x.png`
-  );
+  icon.setAttribute("src", personalIcon(getIcon));
   icon.setAttribute("alt", getDescription);
   getForecast(responsive.data.coord);
   //let getnuvole = responsive.data.clouds;
@@ -118,12 +119,12 @@ function displayForecast(response) {
 
   let forecastHTML = `<div class="row next-days">`;
   forecast.forEach(function (forecastDay, index) {
-    if (index < 6) {
+    if (index < 5) {
       forecastHTML += `<div class="col">
             <div class="forecast-days">
-              <img src="http://openweathermap.org/img/wn/${
+              <img src="${personalIcon(
                 forecastDay.weather[0].icon
-              }@2x.png" class="next-days-img" />
+              )}" class="next-days-img" />
               <span class="forecast-max-temperature">${Math.round(
                 forecastDay.temp.max
               )}°</span>
@@ -152,17 +153,67 @@ function changeBK(info) {
   let backgroundChange = document.querySelector(".main");
   let backgroundHTML = document.querySelector("html");
   let backgroundBody = document.querySelector("body");
-  if (info >= 20) {
+  if (info >= 24) {
     backgroundChange.style.backgroundImage = "url(img/bk-hot.png)";
     backgroundHTML.style.backgroundColor = "rgb(230, 204, 174)";
     backgroundBody.style.background = "rgb(230, 204, 174)";
-  } else {
+  } else if (info <= 13) {
     backgroundChange.style.backgroundImage = `url(img/bk-cold.png)`;
     backgroundHTML.style.backgroundColor = "#97ddd8";
     backgroundBody.style.background = "#97ddd8";
+  } else {
+    backgroundChange.style.backgroundImage = `url(img/bk-neutro.png)`;
+    backgroundHTML.style.backgroundColor = "rgb(163, 240, 240)";
+    backgroundBody.style.background = "rgb(163, 240, 240)";
   }
 }
-//funzione per cambiare da F a C e viceversa
+
+//f to c
+function changeTempTypeF(event) {
+  //no default
+  event.preventDefault();
+  //finta temperatura
+  let changeTemp = document.querySelector(".current-temperature"); //per cambiare l'h1
+
+  let fahrenheit = Math.round((celsius * 9) / 5 + 32);
+  changeTemp.innerHTML = fahrenheit + "°";
+  //remove the active class from c
+  celciusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+}
+function changeTempTypeC(event) {
+  //no default
+  event.preventDefault();
+  //finta temperatura
+  let changeTemp = document.querySelector(".current-temperature"); //per cambiare l'h1
+
+  changeTemp.innerHTML = celsius + "°";
+  //add and remove la classe
+  fahrenheitLink.classList.remove("active");
+  celciusLink.classList.add("active");
+}
+
+//cambiare icone
+function personalIcon(iconId) {
+  let icon = iconId.substring(0, 2);
+  let iconArray = ["01", "02", "03", "04", "10", "13"]; //id from openweather map
+  let iconImg = [
+    "img/sun.png",
+    "img/sole-nuvoloso.png",
+    "img/nuvoloso-bianco.png",
+    "img/nuvoloso.png",
+    "img/rain.png",
+    "img/snow.png",
+  ]; //myicons
+
+  if (iconArray.includes(icon) === true) {
+    let i = iconArray.findIndex((iconIndex) => iconIndex === icon);
+
+    return `${iconImg[i]}`;
+  } else {
+    return `http://openweathermap.org/img/wn/${iconId}@2x.png`;
+  }
+}
 
 let celsius = null;
 currentTime();
@@ -173,5 +224,11 @@ cityForm.addEventListener("submit", searchCity);
 //funzione per avere la temperatura attuale
 let currentCity = document.querySelector("#current-city");
 currentCity.addEventListener("click", getCurrentTemperature);
+//change temp type f c
+let fahrenheitLink = document.querySelector("#current-type");
+fahrenheitLink.addEventListener("click", changeTempTypeF);
 
+//f to c
+let celciusLink = document.querySelector("#current-type-c");
+celciusLink.addEventListener("click", changeTempTypeC);
 start("Zurich");
